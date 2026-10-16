@@ -18,6 +18,11 @@ import { Route as AuthenticatedEstudianteRouteImport } from './routes/_authentic
 import { Route as AuthenticatedReservasRouteImport } from './routes/_authenticated/reservas'
 import { Route as TutoresIndexRouteImport } from './routes/tutores.index'
 import { Route as TutoresIdRouteImport } from './routes/tutores.$id'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminMateriasRouteImport } from './routes/_authenticated/admin.materias'
+import { Route as AuthenticatedAdminReservasRouteImport } from './routes/_authenticated/admin.reservas'
+import { Route as AuthenticatedAdminTutoresRouteImport } from './routes/_authenticated/admin.tutores'
+import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin.usuarios'
 import { Route as AuthenticatedTutorIndexRouteImport } from './routes/_authenticated/tutor.index'
 import { Route as AuthenticatedTutorAgendaRouteImport } from './routes/_authenticated/tutor.agenda'
 import { Route as AuthenticatedTutorPerfilRouteImport } from './routes/_authenticated/tutor.perfil'
@@ -66,6 +71,35 @@ const TutoresIdRoute = TutoresIdRouteImport.update({
   path: '/tutores/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminMateriasRoute =
+  AuthenticatedAdminMateriasRouteImport.update({
+    id: '/admin/materias',
+    path: '/admin/materias',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminReservasRoute =
+  AuthenticatedAdminReservasRouteImport.update({
+    id: '/admin/reservas',
+    path: '/admin/reservas',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminTutoresRoute =
+  AuthenticatedAdminTutoresRouteImport.update({
+    id: '/admin/tutores',
+    path: '/admin/tutores',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminUsuariosRoute =
+  AuthenticatedAdminUsuariosRouteImport.update({
+    id: '/admin/usuarios',
+    path: '/admin/usuarios',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedTutorIndexRoute = AuthenticatedTutorIndexRouteImport.update({
   id: '/tutor/',
   path: '/tutor/',
@@ -93,8 +127,13 @@ export interface FileRoutesByFullPath {
   '/reservas': typeof AuthenticatedReservasRoute
   '/tutores/$id': typeof TutoresIdRoute
   '/tutores/': typeof TutoresIndexRoute
+  '/admin/materias': typeof AuthenticatedAdminMateriasRoute
+  '/admin/reservas': typeof AuthenticatedAdminReservasRoute
+  '/admin/tutores': typeof AuthenticatedAdminTutoresRoute
+  '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/tutor/agenda': typeof AuthenticatedTutorAgendaRoute
   '/tutor/perfil': typeof AuthenticatedTutorPerfilRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/tutor/': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRoutesByTo {
@@ -106,8 +145,13 @@ export interface FileRoutesByTo {
   '/reservas': typeof AuthenticatedReservasRoute
   '/tutores/$id': typeof TutoresIdRoute
   '/tutores': typeof TutoresIndexRoute
+  '/admin/materias': typeof AuthenticatedAdminMateriasRoute
+  '/admin/reservas': typeof AuthenticatedAdminReservasRoute
+  '/admin/tutores': typeof AuthenticatedAdminTutoresRoute
+  '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/tutor/agenda': typeof AuthenticatedTutorAgendaRoute
   '/tutor/perfil': typeof AuthenticatedTutorPerfilRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/tutor': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRoutesById {
@@ -121,8 +165,13 @@ export interface FileRoutesById {
   '/_authenticated/reservas': typeof AuthenticatedReservasRoute
   '/tutores/$id': typeof TutoresIdRoute
   '/tutores/': typeof TutoresIndexRoute
+  '/_authenticated/admin/materias': typeof AuthenticatedAdminMateriasRoute
+  '/_authenticated/admin/reservas': typeof AuthenticatedAdminReservasRoute
+  '/_authenticated/admin/tutores': typeof AuthenticatedAdminTutoresRoute
+  '/_authenticated/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/_authenticated/tutor/agenda': typeof AuthenticatedTutorAgendaRoute
   '/_authenticated/tutor/perfil': typeof AuthenticatedTutorPerfilRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/tutor/': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRouteTypes {
@@ -136,8 +185,13 @@ export interface FileRouteTypes {
     | '/reservas'
     | '/tutores/$id'
     | '/tutores/'
+    | '/admin/materias'
+    | '/admin/reservas'
+    | '/admin/tutores'
+    | '/admin/usuarios'
     | '/tutor/agenda'
     | '/tutor/perfil'
+    | '/admin/'
     | '/tutor/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -149,8 +203,13 @@ export interface FileRouteTypes {
     | '/reservas'
     | '/tutores/$id'
     | '/tutores'
+    | '/admin/materias'
+    | '/admin/reservas'
+    | '/admin/tutores'
+    | '/admin/usuarios'
     | '/tutor/agenda'
     | '/tutor/perfil'
+    | '/admin'
     | '/tutor'
   id:
     | '__root__'
@@ -163,8 +222,13 @@ export interface FileRouteTypes {
     | '/_authenticated/reservas'
     | '/tutores/$id'
     | '/tutores/'
+    | '/_authenticated/admin/materias'
+    | '/_authenticated/admin/reservas'
+    | '/_authenticated/admin/tutores'
+    | '/_authenticated/admin/usuarios'
     | '/_authenticated/tutor/agenda'
     | '/_authenticated/tutor/perfil'
+    | '/_authenticated/admin/'
     | '/_authenticated/tutor/'
   fileRoutesById: FileRoutesById
 }
@@ -243,6 +307,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TutoresIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/materias': {
+      id: '/_authenticated/admin/materias'
+      path: '/admin/materias'
+      fullPath: '/admin/materias'
+      preLoaderRoute: typeof AuthenticatedAdminMateriasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/reservas': {
+      id: '/_authenticated/admin/reservas'
+      path: '/admin/reservas'
+      fullPath: '/admin/reservas'
+      preLoaderRoute: typeof AuthenticatedAdminReservasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/tutores': {
+      id: '/_authenticated/admin/tutores'
+      path: '/admin/tutores'
+      fullPath: '/admin/tutores'
+      preLoaderRoute: typeof AuthenticatedAdminTutoresRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/usuarios': {
+      id: '/_authenticated/admin/usuarios'
+      path: '/admin/usuarios'
+      fullPath: '/admin/usuarios'
+      preLoaderRoute: typeof AuthenticatedAdminUsuariosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/tutor/': {
       id: '/_authenticated/tutor/'
       path: '/tutor'
@@ -270,16 +369,26 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedEstudianteRoute: typeof AuthenticatedEstudianteRoute
   AuthenticatedReservasRoute: typeof AuthenticatedReservasRoute
+  AuthenticatedAdminMateriasRoute: typeof AuthenticatedAdminMateriasRoute
+  AuthenticatedAdminReservasRoute: typeof AuthenticatedAdminReservasRoute
+  AuthenticatedAdminTutoresRoute: typeof AuthenticatedAdminTutoresRoute
+  AuthenticatedAdminUsuariosRoute: typeof AuthenticatedAdminUsuariosRoute
   AuthenticatedTutorAgendaRoute: typeof AuthenticatedTutorAgendaRoute
   AuthenticatedTutorPerfilRoute: typeof AuthenticatedTutorPerfilRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedTutorIndexRoute: typeof AuthenticatedTutorIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedEstudianteRoute: AuthenticatedEstudianteRoute,
   AuthenticatedReservasRoute: AuthenticatedReservasRoute,
+  AuthenticatedAdminMateriasRoute: AuthenticatedAdminMateriasRoute,
+  AuthenticatedAdminReservasRoute: AuthenticatedAdminReservasRoute,
+  AuthenticatedAdminTutoresRoute: AuthenticatedAdminTutoresRoute,
+  AuthenticatedAdminUsuariosRoute: AuthenticatedAdminUsuariosRoute,
   AuthenticatedTutorAgendaRoute: AuthenticatedTutorAgendaRoute,
   AuthenticatedTutorPerfilRoute: AuthenticatedTutorPerfilRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedTutorIndexRoute: AuthenticatedTutorIndexRoute,
 }
 
