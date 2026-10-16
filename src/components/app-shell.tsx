@@ -216,7 +216,7 @@ export function RoleGate({ role, children }: { role: AppRole; children: React.Re
       <div className="rounded-2xl border bg-card p-10 text-center">
         <ShieldCheck className="mx-auto size-8 text-muted-foreground" />
         <h2 className="mt-3 text-lg font-bold">No tienes acceso a esta sección</h2>
-        <p className="mt-1 text-sm text-muted-foreground">Esta área es solo para {ROLE_LABEL[role].toLowerCase()}es.</p>
+        <p className="mt-1 text-sm text-muted-foreground">Esta área es solo para {{ admin: "administradores", tutor: "tutores", student: "estudiantes" }[role]}.</p>
       </div>
     );
   return <>{children}</>;
