@@ -1,14 +1,16 @@
-# Welcome to your Lovable project
+# EduPortal Admin
+
+el parcial es el boecto que habia echo, pero en relaidad puedes ignorarlo, ya que se debe mejorar muchisisismo a comparacion del proyecto final, recuerda añadir como un admin donde se podra administrar toda la pagina, los roles de profesores y estudiantes dependiendo del inicio de sesion, tu sabras esteucturar todo bien y usar los colores obviamente que vayan con el logo(te lo anexe)
 
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/7dc4bef8-4497-4150-bf0e-a52222864c71).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +22,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
