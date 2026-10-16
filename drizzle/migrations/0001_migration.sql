@@ -1,0 +1,1 @@
+create policy "tutor profiles admin insert" on public.tutor_profiles for insert to authenticated with check (public.has_role(auth.uid(),'admin'));
