@@ -11,10 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as ComoFuncionaRouteImport } from './routes/como-funciona'
+import { Route as EnsenarRouteImport } from './routes/ensenar'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegistroRouteImport } from './routes/registro'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedEstudianteRouteImport } from './routes/_authenticated/estudiante'
+import { Route as AuthenticatedNotificacionesRouteImport } from './routes/_authenticated/notificaciones'
+import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
 import { Route as AuthenticatedReservasRouteImport } from './routes/_authenticated/reservas'
 import { Route as TutoresIndexRouteImport } from './routes/tutores.index'
 import { Route as TutoresIdRouteImport } from './routes/tutores.$id'
@@ -36,6 +40,16 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComoFuncionaRoute = ComoFuncionaRouteImport.update({
+  id: '/como-funciona',
+  path: '/como-funciona',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnsenarRoute = EnsenarRouteImport.update({
+  id: '/ensenar',
+  path: '/ensenar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -54,6 +68,17 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const AuthenticatedEstudianteRoute = AuthenticatedEstudianteRouteImport.update({
   id: '/estudiante',
   path: '/estudiante',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNotificacionesRoute =
+  AuthenticatedNotificacionesRouteImport.update({
+    id: '/notificaciones',
+    path: '/notificaciones',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPerfilRoute = AuthenticatedPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedReservasRoute = AuthenticatedReservasRouteImport.update({
@@ -120,10 +145,14 @@ const AuthenticatedTutorPerfilRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/como-funciona': typeof ComoFuncionaRoute
+  '/ensenar': typeof EnsenarRoute
   '/login': typeof LoginRoute
   '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
   '/estudiante': typeof AuthenticatedEstudianteRoute
+  '/notificaciones': typeof AuthenticatedNotificacionesRoute
+  '/perfil': typeof AuthenticatedPerfilRoute
   '/reservas': typeof AuthenticatedReservasRoute
   '/tutores/$id': typeof TutoresIdRoute
   '/tutores/': typeof TutoresIndexRoute
@@ -138,10 +167,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/como-funciona': typeof ComoFuncionaRoute
+  '/ensenar': typeof EnsenarRoute
   '/login': typeof LoginRoute
   '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
   '/estudiante': typeof AuthenticatedEstudianteRoute
+  '/notificaciones': typeof AuthenticatedNotificacionesRoute
+  '/perfil': typeof AuthenticatedPerfilRoute
   '/reservas': typeof AuthenticatedReservasRoute
   '/tutores/$id': typeof TutoresIdRoute
   '/tutores': typeof TutoresIndexRoute
@@ -158,10 +191,14 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/como-funciona': typeof ComoFuncionaRoute
+  '/ensenar': typeof EnsenarRoute
   '/login': typeof LoginRoute
   '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/estudiante': typeof AuthenticatedEstudianteRoute
+  '/_authenticated/notificaciones': typeof AuthenticatedNotificacionesRoute
+  '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
   '/_authenticated/reservas': typeof AuthenticatedReservasRoute
   '/tutores/$id': typeof TutoresIdRoute
   '/tutores/': typeof TutoresIndexRoute
@@ -178,10 +215,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/como-funciona'
+    | '/ensenar'
     | '/login'
     | '/registro'
     | '/reset-password'
     | '/estudiante'
+    | '/notificaciones'
+    | '/perfil'
     | '/reservas'
     | '/tutores/$id'
     | '/tutores/'
@@ -196,10 +237,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/como-funciona'
+    | '/ensenar'
     | '/login'
     | '/registro'
     | '/reset-password'
     | '/estudiante'
+    | '/notificaciones'
+    | '/perfil'
     | '/reservas'
     | '/tutores/$id'
     | '/tutores'
@@ -215,10 +260,14 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/como-funciona'
+    | '/ensenar'
     | '/login'
     | '/registro'
     | '/reset-password'
     | '/_authenticated/estudiante'
+    | '/_authenticated/notificaciones'
+    | '/_authenticated/perfil'
     | '/_authenticated/reservas'
     | '/tutores/$id'
     | '/tutores/'
@@ -235,6 +284,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  ComoFuncionaRoute: typeof ComoFuncionaRoute
+  EnsenarRoute: typeof EnsenarRoute
   LoginRoute: typeof LoginRoute
   RegistroRoute: typeof RegistroRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -256,6 +307,20 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/como-funciona': {
+      id: '/como-funciona'
+      path: '/como-funciona'
+      fullPath: '/como-funciona'
+      preLoaderRoute: typeof ComoFuncionaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ensenar': {
+      id: '/ensenar'
+      path: '/ensenar'
+      fullPath: '/ensenar'
+      preLoaderRoute: typeof EnsenarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -284,6 +349,20 @@ declare module '@tanstack/react-router' {
       path: '/estudiante'
       fullPath: '/estudiante'
       preLoaderRoute: typeof AuthenticatedEstudianteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/notificaciones': {
+      id: '/_authenticated/notificaciones'
+      path: '/notificaciones'
+      fullPath: '/notificaciones'
+      preLoaderRoute: typeof AuthenticatedNotificacionesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/perfil': {
+      id: '/_authenticated/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof AuthenticatedPerfilRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/reservas': {
@@ -368,6 +447,8 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedEstudianteRoute: typeof AuthenticatedEstudianteRoute
+  AuthenticatedNotificacionesRoute: typeof AuthenticatedNotificacionesRoute
+  AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
   AuthenticatedReservasRoute: typeof AuthenticatedReservasRoute
   AuthenticatedAdminMateriasRoute: typeof AuthenticatedAdminMateriasRoute
   AuthenticatedAdminReservasRoute: typeof AuthenticatedAdminReservasRoute
@@ -381,6 +462,8 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedEstudianteRoute: AuthenticatedEstudianteRoute,
+  AuthenticatedNotificacionesRoute: AuthenticatedNotificacionesRoute,
+  AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
   AuthenticatedReservasRoute: AuthenticatedReservasRoute,
   AuthenticatedAdminMateriasRoute: AuthenticatedAdminMateriasRoute,
   AuthenticatedAdminReservasRoute: AuthenticatedAdminReservasRoute,
@@ -398,6 +481,8 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  ComoFuncionaRoute: ComoFuncionaRoute,
+  EnsenarRoute: EnsenarRoute,
   LoginRoute: LoginRoute,
   RegistroRoute: RegistroRoute,
   ResetPasswordRoute: ResetPasswordRoute,
