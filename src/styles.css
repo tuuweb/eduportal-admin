@@ -53,6 +53,7 @@
   --color-chart-5: var(--chart-5);
   --color-primary-deep: var(--primary-deep);
   --color-indigo: var(--indigo);
+  --color-logo-surface: oklch(0.99 0 0);
   --color-navy: var(--navy);
   --color-warning: var(--warning);
   --color-success: var(--success);

@@ -8,7 +8,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="relative hidden flex-col justify-between overflow-hidden bg-secondary p-12 lg:flex">
         <div className="pointer-events-none absolute inset-0 bg-hero-glow" />
-        <div className="relative rounded-3xl bg-card/90 p-10 shadow-soft">
+        <div className="relative rounded-3xl bg-logo-surface p-10 shadow-soft">
           <img src={logo.url} alt="Tuteya — Tu tutor, a un clic" className="mx-auto w-64" />
         </div>
         <blockquote className="relative text-2xl font-bold leading-snug text-secondary-foreground">
