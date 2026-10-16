@@ -18,6 +18,9 @@ import { Route as AuthenticatedEstudianteRouteImport } from './routes/_authentic
 import { Route as AuthenticatedReservasRouteImport } from './routes/_authenticated/reservas'
 import { Route as TutoresIndexRouteImport } from './routes/tutores.index'
 import { Route as TutoresIdRouteImport } from './routes/tutores.$id'
+import { Route as AuthenticatedTutorIndexRouteImport } from './routes/_authenticated/tutor.index'
+import { Route as AuthenticatedTutorAgendaRouteImport } from './routes/_authenticated/tutor.agenda'
+import { Route as AuthenticatedTutorPerfilRouteImport } from './routes/_authenticated/tutor.perfil'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -63,6 +66,23 @@ const TutoresIdRoute = TutoresIdRouteImport.update({
   path: '/tutores/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedTutorIndexRoute = AuthenticatedTutorIndexRouteImport.update({
+  id: '/tutor/',
+  path: '/tutor/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTutorAgendaRoute =
+  AuthenticatedTutorAgendaRouteImport.update({
+    id: '/tutor/agenda',
+    path: '/tutor/agenda',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedTutorPerfilRoute =
+  AuthenticatedTutorPerfilRouteImport.update({
+    id: '/tutor/perfil',
+    path: '/tutor/perfil',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,6 +93,9 @@ export interface FileRoutesByFullPath {
   '/reservas': typeof AuthenticatedReservasRoute
   '/tutores/$id': typeof TutoresIdRoute
   '/tutores/': typeof TutoresIndexRoute
+  '/tutor/agenda': typeof AuthenticatedTutorAgendaRoute
+  '/tutor/perfil': typeof AuthenticatedTutorPerfilRoute
+  '/tutor/': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,6 +106,9 @@ export interface FileRoutesByTo {
   '/reservas': typeof AuthenticatedReservasRoute
   '/tutores/$id': typeof TutoresIdRoute
   '/tutores': typeof TutoresIndexRoute
+  '/tutor/agenda': typeof AuthenticatedTutorAgendaRoute
+  '/tutor/perfil': typeof AuthenticatedTutorPerfilRoute
+  '/tutor': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,6 +121,9 @@ export interface FileRoutesById {
   '/_authenticated/reservas': typeof AuthenticatedReservasRoute
   '/tutores/$id': typeof TutoresIdRoute
   '/tutores/': typeof TutoresIndexRoute
+  '/_authenticated/tutor/agenda': typeof AuthenticatedTutorAgendaRoute
+  '/_authenticated/tutor/perfil': typeof AuthenticatedTutorPerfilRoute
+  '/_authenticated/tutor/': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -107,6 +136,9 @@ export interface FileRouteTypes {
     | '/reservas'
     | '/tutores/$id'
     | '/tutores/'
+    | '/tutor/agenda'
+    | '/tutor/perfil'
+    | '/tutor/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -117,6 +149,9 @@ export interface FileRouteTypes {
     | '/reservas'
     | '/tutores/$id'
     | '/tutores'
+    | '/tutor/agenda'
+    | '/tutor/perfil'
+    | '/tutor'
   id:
     | '__root__'
     | '/'
@@ -128,6 +163,9 @@ export interface FileRouteTypes {
     | '/_authenticated/reservas'
     | '/tutores/$id'
     | '/tutores/'
+    | '/_authenticated/tutor/agenda'
+    | '/_authenticated/tutor/perfil'
+    | '/_authenticated/tutor/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -205,17 +243,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TutoresIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/tutor/': {
+      id: '/_authenticated/tutor/'
+      path: '/tutor'
+      fullPath: '/tutor/'
+      preLoaderRoute: typeof AuthenticatedTutorIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tutor/agenda': {
+      id: '/_authenticated/tutor/agenda'
+      path: '/tutor/agenda'
+      fullPath: '/tutor/agenda'
+      preLoaderRoute: typeof AuthenticatedTutorAgendaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tutor/perfil': {
+      id: '/_authenticated/tutor/perfil'
+      path: '/tutor/perfil'
+      fullPath: '/tutor/perfil'
+      preLoaderRoute: typeof AuthenticatedTutorPerfilRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedEstudianteRoute: typeof AuthenticatedEstudianteRoute
   AuthenticatedReservasRoute: typeof AuthenticatedReservasRoute
+  AuthenticatedTutorAgendaRoute: typeof AuthenticatedTutorAgendaRoute
+  AuthenticatedTutorPerfilRoute: typeof AuthenticatedTutorPerfilRoute
+  AuthenticatedTutorIndexRoute: typeof AuthenticatedTutorIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedEstudianteRoute: AuthenticatedEstudianteRoute,
   AuthenticatedReservasRoute: AuthenticatedReservasRoute,
+  AuthenticatedTutorAgendaRoute: AuthenticatedTutorAgendaRoute,
+  AuthenticatedTutorPerfilRoute: AuthenticatedTutorPerfilRoute,
+  AuthenticatedTutorIndexRoute: AuthenticatedTutorIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
