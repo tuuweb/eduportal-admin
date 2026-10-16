@@ -55,8 +55,8 @@ function TutorProfile() {
 
   async function save() {
     if (!f || !user) return;
-    if (f.headline.trim().length < 5) return toast.error("Escribe un titular de al menos 5 caracteres.");
-    if (sel.length === 0) return toast.error("Elige al menos una materia.");
+    if (f.headline.trim().length < 5) { toast.error("Escribe un titular de al menos 5 caracteres."); return; }
+    if (sel.length === 0) { toast.error("Elige al menos una materia."); return; }
     setBusy(true);
     const { error } = await supabase.from("tutor_profiles").update({ ...f, city: f.city || null, headline: f.headline.trim(), bio: f.bio.trim() }).eq("user_id", user.id);
     if (!error) {
@@ -67,7 +67,7 @@ function TutorProfile() {
       if (del.length) await supabase.from("tutor_subjects").delete().eq("tutor_id", user.id).in("subject_id", del);
     }
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Perfil guardado");
     qc.invalidateQueries();
   }

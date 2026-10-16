@@ -11,7 +11,7 @@ import { useSetStatus, type BookingRow } from "@/lib/bookings";
 import { dateTime } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
-export function BookingList({ items, viewerId, admin }: { items: BookingRow[]; viewerId?: string; admin?: boolean }) {
+export function BookingList({ items, viewerId, admin }: { items: BookingRow[]; viewerId?: string | undefined; admin?: boolean }) {
   const setStatus = useSetStatus();
   const [reviewFor, setReviewFor] = useState<BookingRow | null>(null);
   return (
@@ -88,7 +88,7 @@ function ReviewDialog({ booking, onClose }: { booking: BookingRow | null; onClos
       rating,
       comment: comment.trim() || null,
     });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("¡Gracias por tu reseña!");
     qc.invalidateQueries();
     onClose();

@@ -62,7 +62,7 @@ function TutorPage() {
   const isOwn = user?.id === t.user_id;
 
   async function book() {
-    if (!user) return navigate({ to: "/login" });
+    if (!user) { navigate({ to: "/login" }); return; }
     if (!slot) return;
     setBusy(true);
     const { error } = await supabase.from("bookings").insert({
@@ -76,8 +76,8 @@ function TutorPage() {
     });
     setBusy(false);
     if (error) {
-      if (error.code === "23505") return toast.error("Ese horario acaba de ser reservado. Elige otro.");
-      return toast.error("No se pudo enviar la solicitud: " + error.message);
+      if (error.code === "23505") { toast.error("Ese horario acaba de ser reservado. Elige otro."); return; }
+      { toast.error("No se pudo enviar la solicitud: " + error.message); return; }
     }
     qc.invalidateQueries({ queryKey: ["bookings"] });
     toast.success("Solicitud enviada. El tutor debe confirmarla.");

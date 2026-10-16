@@ -43,9 +43,9 @@ function LoginPage() {
         redirectTo: `${window.location.origin}/reset-password`,
       });
       setBusy(false);
-      if (error) return setError(error.message);
+      if (error) { setError(error.message); return; }
       toast.success("Si el correo existe, te enviamos un enlace para restablecer tu contraseña.");
-      return setResetMode(false);
+      { setResetMode(false); return; }
     }
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setBusy(false);

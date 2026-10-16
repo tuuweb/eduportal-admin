@@ -29,12 +29,12 @@ function Profile() {
   }, [data]);
 
   async function save() {
-    if (f.full_name.trim().length < 3) return toast.error("El nombre es demasiado corto.");
+    if (f.full_name.trim().length < 3) { toast.error("El nombre es demasiado corto."); return; }
     const { error } = await supabase
       .from("profiles")
       .update({ full_name: f.full_name.trim(), phone: f.phone.trim() || null, city: f.city.trim() || null, education_level: f.education_level || null })
       .eq("id", user!.id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Perfil actualizado");
     refresh();
   }

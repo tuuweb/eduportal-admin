@@ -30,11 +30,11 @@ function ResetPage() {
         className="mt-8 space-y-4"
         onSubmit={async (e) => {
           e.preventDefault();
-          if (pw.length < 8) return toast.error("Usa al menos 8 caracteres.");
+          if (pw.length < 8) { toast.error("Usa al menos 8 caracteres."); return; }
           setBusy(true);
           const { error } = await supabase.auth.updateUser({ password: pw });
           setBusy(false);
-          if (error) return toast.error(error.message);
+          if (error) { toast.error(error.message); return; }
           toast.success("Contraseña actualizada");
           navigate({ to: "/login" });
         }}

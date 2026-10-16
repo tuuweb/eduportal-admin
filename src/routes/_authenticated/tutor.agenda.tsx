@@ -33,11 +33,11 @@ function Agenda() {
   const [end, setEnd] = useState("12:00");
 
   async function add() {
-    if (end <= start) return toast.error("La hora final debe ser posterior a la inicial.");
+    if (end <= start) { toast.error("La hora final debe ser posterior a la inicial."); return; }
     const overlap = data.some((a) => a.weekday === Number(day) && start < a.end_time.slice(0, 5) && end > a.start_time.slice(0, 5));
-    if (overlap) return toast.error("Ese bloque se cruza con otro del mismo día.");
+    if (overlap) { toast.error("Ese bloque se cruza con otro del mismo día."); return; }
     const { error } = await supabase.from("tutor_availability").insert({ tutor_id: user!.id, weekday: Number(day), start_time: start, end_time: end });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries({ queryKey: key });
     toast.success("Bloque agregado");
   }

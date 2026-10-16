@@ -45,8 +45,8 @@ export function slotsForDate(
   const out: Date[] = [];
   const blocks = availability.filter((a) => a.weekday === date.getDay());
   for (const b of blocks) {
-    const [sh] = b.start_time.split(":").map(Number);
-    const [eh] = b.end_time.split(":").map(Number);
+    const sh = Number(b.start_time.split(":")[0]);
+    const eh = Number(b.end_time.split(":")[0]);
     for (let h = sh; h + 1 <= eh; h++) {
       const d = new Date(date);
       d.setHours(h, 0, 0, 0);

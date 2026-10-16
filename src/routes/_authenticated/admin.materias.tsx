@@ -25,9 +25,9 @@ function Subjects() {
   const [area, setArea] = useState("");
 
   async function add() {
-    if (name.trim().length < 2) return toast.error("Escribe un nombre válido.");
+    if (name.trim().length < 2) { toast.error("Escribe un nombre válido."); return; }
     const { error } = await supabase.from("subjects").insert({ name: name.trim(), area: area.trim() || "General" });
-    if (error) return toast.error(error.code === "23505" ? "Esa materia ya existe." : error.message);
+    if (error) { toast.error(error.code === "23505" ? "Esa materia ya existe." : error.message); return; }
     setName("");
     setArea("");
     qc.invalidateQueries({ queryKey: ["subjects"] });
@@ -35,7 +35,7 @@ function Subjects() {
   async function remove(id: string) {
     if (!confirm("¿Eliminar esta materia? Se quitará de los perfiles de tutor.")) return;
     const { error } = await supabase.from("subjects").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries({ queryKey: ["subjects"] });
   }
 

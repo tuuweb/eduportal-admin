@@ -212,8 +212,8 @@ function Index() {
             ["¿Quién puede dejar reseñas?", "Solo los estudiantes que completaron una tutoría con ese tutor."],
             ["¿Cómo me convierto en tutor?", "Crea una cuenta como tutor, completa tu perfil profesional y el equipo de Tuteya lo aprobará para publicarlo."],
             ["¿Puedo cancelar una reserva?", "Sí, puedes cancelar reservas pendientes o confirmadas desde “Mis reservas”."],
-          ].map(([q, a]) => (
-            <AccordionItem key={q} value={q}>
+          ].map(([q, a = ""]) => (
+            <AccordionItem key={q} value={q ?? ""}>
               <AccordionTrigger className="text-left font-semibold">{q}</AccordionTrigger>
               <AccordionContent className="text-muted-foreground">{a}</AccordionContent>
             </AccordionItem>

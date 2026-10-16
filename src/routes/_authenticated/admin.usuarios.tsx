@@ -41,13 +41,13 @@ function Users() {
   });
 
   async function toggle(uid: string, role: AppRole, has: boolean) {
-    if (uid === user?.id && role === "admin" && has) return toast.error("No puedes quitarte tu propio rol de administrador.");
+    if (uid === user?.id && role === "admin" && has) { toast.error("No puedes quitarte tu propio rol de administrador."); return; }
     if (has) {
       const { error } = await supabase.from("user_roles").delete().eq("user_id", uid).eq("role", role);
-      if (error) return toast.error(error.message);
+      if (error) { toast.error(error.message); return; }
     } else {
       const { error } = await supabase.from("user_roles").insert({ user_id: uid, role });
-      if (error) return toast.error(error.message);
+      if (error) { toast.error(error.message); return; }
       if (role === "tutor") await supabase.from("tutor_profiles").upsert({ user_id: uid }, { onConflict: "user_id", ignoreDuplicates: true });
     }
     toast.success("Roles actualizados");

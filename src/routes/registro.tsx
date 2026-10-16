@@ -46,7 +46,7 @@ function RegisterPage() {
     if (!parsed.success) {
       const errs: Record<string, string> = {};
       parsed.error.issues.forEach((i) => (errs[i.path[0] as string] = i.message));
-      return setErrors(errs);
+      { setErrors(errs); return; }
     }
     setErrors({});
     setBusy(true);
@@ -59,7 +59,7 @@ function RegisterPage() {
       },
     });
     setBusy(false);
-    if (error) return setServerError(error.message);
+    if (error) { setServerError(error.message); return; }
     setSent(true);
   }
 

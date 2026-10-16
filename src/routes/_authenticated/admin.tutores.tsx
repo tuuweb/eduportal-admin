@@ -31,7 +31,7 @@ function Tutors() {
 
   async function setApproved(id: string, v: boolean) {
     const { error } = await supabase.from("tutor_profiles").update({ is_approved: v }).eq("user_id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success(v ? "Tutor publicado" : "Tutor ocultado del catálogo");
     qc.invalidateQueries();
   }

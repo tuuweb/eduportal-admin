@@ -41,7 +41,7 @@ export function useSetStatus() {
   const qc = useQueryClient();
   return async (id: string, status: BookingStatus, okMsg: string) => {
     const { error } = await supabase.from("bookings").update({ status }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success(okMsg);
     qc.invalidateQueries({ queryKey: ["bookings"] });
     qc.invalidateQueries({ queryKey: ["unread"] });
