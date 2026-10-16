@@ -10,14 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegistroRouteImport } from './routes/registro'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as AuthenticatedEstudianteRouteImport } from './routes/_authenticated/estudiante'
+import { Route as AuthenticatedReservasRouteImport } from './routes/_authenticated/reservas'
 import { Route as TutoresIndexRouteImport } from './routes/tutores.index'
+import { Route as TutoresIdRouteImport } from './routes/tutores.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -35,9 +43,24 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedEstudianteRoute = AuthenticatedEstudianteRouteImport.update({
+  id: '/estudiante',
+  path: '/estudiante',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedReservasRoute = AuthenticatedReservasRouteImport.update({
+  id: '/reservas',
+  path: '/reservas',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const TutoresIndexRoute = TutoresIndexRouteImport.update({
   id: '/tutores/',
   path: '/tutores/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TutoresIdRoute = TutoresIdRouteImport.update({
+  id: '/tutores/$id',
+  path: '/tutores/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -46,6 +69,9 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/estudiante': typeof AuthenticatedEstudianteRoute
+  '/reservas': typeof AuthenticatedReservasRoute
+  '/tutores/$id': typeof TutoresIdRoute
   '/tutores/': typeof TutoresIndexRoute
 }
 export interface FileRoutesByTo {
@@ -53,30 +79,64 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/estudiante': typeof AuthenticatedEstudianteRoute
+  '/reservas': typeof AuthenticatedReservasRoute
+  '/tutores/$id': typeof TutoresIdRoute
   '/tutores': typeof TutoresIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/_authenticated/estudiante': typeof AuthenticatedEstudianteRoute
+  '/_authenticated/reservas': typeof AuthenticatedReservasRoute
+  '/tutores/$id': typeof TutoresIdRoute
   '/tutores/': typeof TutoresIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/registro' | '/reset-password' | '/tutores/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/registro'
+    | '/reset-password'
+    | '/estudiante'
+    | '/reservas'
+    | '/tutores/$id'
+    | '/tutores/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/registro' | '/reset-password' | '/tutores'
+  to:
+    | '/'
+    | '/login'
+    | '/registro'
+    | '/reset-password'
+    | '/estudiante'
+    | '/reservas'
+    | '/tutores/$id'
+    | '/tutores'
   id:
-    '__root__' | '/' | '/login' | '/registro' | '/reset-password' | '/tutores/'
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/login'
+    | '/registro'
+    | '/reset-password'
+    | '/_authenticated/estudiante'
+    | '/_authenticated/reservas'
+    | '/tutores/$id'
+    | '/tutores/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   LoginRoute: typeof LoginRoute
   RegistroRoute: typeof RegistroRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  TutoresIdRoute: typeof TutoresIdRoute
   TutoresIndexRoute: typeof TutoresIndexRoute
 }
 
@@ -87,6 +147,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -110,6 +177,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/estudiante': {
+      id: '/_authenticated/estudiante'
+      path: '/estudiante'
+      fullPath: '/estudiante'
+      preLoaderRoute: typeof AuthenticatedEstudianteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/reservas': {
+      id: '/_authenticated/reservas'
+      path: '/reservas'
+      fullPath: '/reservas'
+      preLoaderRoute: typeof AuthenticatedReservasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/tutores/': {
       id: '/tutores/'
       path: '/tutores'
@@ -117,14 +198,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TutoresIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tutores/$id': {
+      id: '/tutores/$id'
+      path: '/tutores/$id'
+      fullPath: '/tutores/$id'
+      preLoaderRoute: typeof TutoresIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedEstudianteRoute: typeof AuthenticatedEstudianteRoute
+  AuthenticatedReservasRoute: typeof AuthenticatedReservasRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedEstudianteRoute: AuthenticatedEstudianteRoute,
+  AuthenticatedReservasRoute: AuthenticatedReservasRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   LoginRoute: LoginRoute,
   RegistroRoute: RegistroRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  TutoresIdRoute: TutoresIdRoute,
   TutoresIndexRoute: TutoresIndexRoute,
 }
 export const routeTree = rootRouteImport

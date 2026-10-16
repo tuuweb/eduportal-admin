@@ -225,3 +225,15 @@ export function RoleGate({ role, children }: { role: AppRole; children: React.Re
 export function Card({ className, ...p }: React.HTMLAttributes<HTMLDivElement>) {
   return <div className={cn("rounded-2xl border bg-card p-6 shadow-soft", className)} {...p} />;
 }
+
+export function Stat({ icon: Icon, label, value }: { icon: typeof Bell; label: string; value: number | string }) {
+  return (
+    <Card className="flex items-center gap-4">
+      <div className="grid size-12 place-items-center rounded-xl bg-secondary text-secondary-foreground"><Icon className="size-5" /></div>
+      <div>
+        <p className="text-2xl font-extrabold">{value}</p>
+        <p className="text-sm text-muted-foreground">{label}</p>
+      </div>
+    </Card>
+  );
+}

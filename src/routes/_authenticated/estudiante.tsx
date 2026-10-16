@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, CalendarCheck, CalendarDays, Clock, Search, Sparkles } from "lucide-react";
-import { Card, PageTitle } from "@/components/app-shell";
+import { Card, PageTitle, Stat } from "@/components/app-shell";
 import { EmptyState, StatusBadge } from "@/components/brand";
 import { BookingList } from "@/components/booking-list";
 import { Button } from "@/components/ui/button";
@@ -86,14 +86,3 @@ function StudentDash() {
   );
 }
 
-export function Stat({ icon: Icon, label, value }: { icon: typeof Clock; label: string; value: number | string }) {
-  return (
-    <Card className="flex items-center gap-4">
-      <div className="grid size-12 place-items-center rounded-xl bg-secondary text-secondary-foreground"><Icon className="size-5" /></div>
-      <div>
-        <p className="text-2xl font-extrabold">{value}</p>
-        <p className="text-sm text-muted-foreground">{label}</p>
-      </div>
-    </Card>
-  );
-}
